@@ -48,6 +48,11 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 
 list(APPEND ${PROJECT_NAME}_LIBRARIES "${PROJECT_NAME}")
 
+install(
+  DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION include/${PROJECT_NAME}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
