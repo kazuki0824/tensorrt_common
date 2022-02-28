@@ -17,9 +17,14 @@ find_package(CUDA REQUIRED)
 find_package(CUDNN REQUIRED)
 find_package(TensorRT REQUIRED)
 
-if(NOT (${CUDA_FOUND} AND ${CUDNN_FOUND} AND ${TENSORRT_FOUND}))
-  message(WARNING "cuda, cudnn, tensorrt libraries are not found")
-  return()
+if(NOT ${CUDA_FOUND})
+  message(WARNING "cuda libraries are not found")
+endif()
+if(NOT ${CUDNN_FOUND})
+  message(WARNING "cudnn, libraries are not found")
+endif()
+if(NOT ${TENSORRT_FOUND})
+  message(WARNING "tensorrt libraries are not found")
 endif()
 
 cuda_add_library(${PROJECT_NAME} SHARED
@@ -48,10 +53,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 
 list(APPEND ${PROJECT_NAME}_LIBRARIES "${PROJECT_NAME}")
 
-install(
-  DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION include/${PROJECT_NAME}
-)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
